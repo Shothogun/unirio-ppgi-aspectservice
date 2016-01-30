@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+	PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="org.yawlfoundation.yawl.aspectService.Advice" table="Aspects" dynamic-update="true">
+
+		<id name="id" column="id" type="long">
+            <generator class="sequence">
+            	<param name="sequence">id_</param>
+         	</generator>
+        </id>
+                
+		<property name="parentSpecID"	column="parentSpecID"	access="field" />
+		<property name="parentSpecName"	column="parentSpecName"	access="field" />
+        <property name="parentCaseID"	column="parentCaseID"	access="field" />
+        <property name="adjpID"			column="adjpID"			access="field" />
+        <property name="adjpChildID"	column="adjpChildID"	access="field" />
+        <property name="adjpDataString" column="adjpDataString" access="field" type="text" />
+		<property name="adviceName"		column="adviceName"		access="field" />
+        <property name="adviceCaseID"	column="adviceCaseID"	access="field" />
+        <property name="proceedID"		column="proceedID"		access="field" />
+        <property name="proceedName"	column="proceedName"	access="field" />
+        <property name="synched"		column="synched"		access="field" type="boolean" />
+    </class>
+	
+</hibernate-mapping>
