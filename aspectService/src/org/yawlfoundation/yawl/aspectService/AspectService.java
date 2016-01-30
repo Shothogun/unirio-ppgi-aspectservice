@@ -294,7 +294,7 @@ public class AspectService
   {
     Collection<String> advices = new ArrayList();
     
-    String ruleFileName = _ruleFolder + "\\aobpm_extended.xml";
+    String ruleFileName = _ruleFolder + "\\aobpm_goal.xml";
     
     File file = new File(ruleFileName);
     if (file.exists())
