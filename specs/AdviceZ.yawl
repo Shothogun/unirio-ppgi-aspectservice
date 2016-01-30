@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="AdviceZ">
+    <documentation>No description has been given.</documentation>
+    <metaData>
+      <creator>amin-jal</creator>
+      <description>No description has been given.</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_9e9993e0-d891-4de4-a6f9-46fc21992e7b</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="AdviceZ" isRootNet="true" xsi:type="NetFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>ID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="G" />
+          </flowsInto>
+        </inputCondition>
+        <task id="G">
+          <name>G</name>
+          <flowsInto>
+            <nextElementRef id="P" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ID&gt;{/AdviceZ/ID/text()}&lt;/ID&gt;" />
+              <mapsTo>ID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ID&gt;{/G/ID/text()}&lt;/ID&gt;" />
+              <mapsTo>ID</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="G" />
+        </task>
+        <task id="P">
+          <name>P</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ID&gt;{/AdviceZ/ID/text()}&lt;/ID&gt;" />
+              <mapsTo>ID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ID&gt;{/P/ID/text()}&lt;/ID&gt;" />
+              <mapsTo>ID</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="P" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="G" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>ID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="P" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>ID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <yawlService id="http://localhost:8080/aspectService/ib">
+        <documentation>A aspect service.</documentation>
+      </yawlService>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="pt" country="BR"/>
+    <specification id="AdviceZ">
+      <size w="91" h="28"/>
+      <net id="AdviceZ">
+        <bounds x="0" y="0" w="1204" h="660"/>
+        <frame x="0" y="0" w="1207" h="663"/>
+        <viewport x="0" y="0" w="1207" h="663"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="280" y="172" w="32" h="32"/>
+            <backgroundColor>-3355393</backgroundColor>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="36" y="172" w="32" h="32"/>
+            <backgroundColor>-3355393</backgroundColor>
+          </attributes>
+        </vertex>
+        <container id="P">
+          <vertex>
+            <attributes>
+              <bounds x="188" y="172" w="32" h="32"/>
+              <backgroundColor>-3355393</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="156" y="204" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="G">
+          <vertex>
+            <attributes>
+              <bounds x="112" y="172" w="32" h="32"/>
+              <backgroundColor>-3355393</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="80" y="204" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="InputCondition" target="G">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="G" target="P">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="P" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aspects>
+  <aspect name="AspectW">
+    <advices>
+      <advice name="AdviceW" process="AdviceW" goal="" >
+        <pointcuts>
+          <pointcut process="Main" task="B" condition="true" />
+        </pointcuts>
+      </advice>
+    </advices>
+  </aspect>
+  <aspect name="AspectY">
+    <advices>
+      <advice name="AdviceY" process="AdviceY" goal="" >
+        <pointcuts>
+          <pointcut process="Main" task="B" condition="true" />
+        </pointcuts>
+      </advice>
+    </advices>
+  </aspect>
+  <aspect name="AspectZ">
+    <advices>
+      <advice name="AdviceZ" process="AdviceZ" goal="" >
+        <pointcuts>
+          <pointcut process="Main" task="B" condition="true" />
+        </pointcuts>
+      </advice>
+    </advices>
+  </aspect>
+  <aspect name="AspectX">
+    <advices>
+      <advice name="AdviceX" process="AdviceX" goal="" >
+        <pointcuts>
+          <pointcut process="Main" task="B" condition="true" />
+        </pointcuts>
+      </advice>
+    </advices>
+  </aspect>
+  <aspect name="Security">
+    <advices>
+      <advice name="Confirm" process="Confirm" goal="" >
+        <pointcuts>
+          <pointcut process="ChangeAssetDeal" task="Make a Deal" condition="true" />
+          <pointcut process="DealForSpeculation" task="Make a request" condition="//Amount>10000" />
+        </pointcuts>
+      </advice>
+      <advice name="Sign" process="Sign" goal="" >
+        <pointcuts>
+          <pointcut process="ChangeAssetDeal" task="Fill Dealslip" condition="true" />
+          <pointcut process="ChangeAssetDeal" task="Send the SWIFT" condition="true" />
+          <pointcut process="ChangeAssetDeal" task="Receive MT300" condition="true" />
+          <pointcut process="DealForSpeculation" task="Receive MT300" condition="true" />
+          <pointcut process="DealForSpeculation" task="Fill Dealslip" condition="true" />
+          <pointcut process="DealForSpeculation" task="Send the SWIFT" condition="true" />
+        </pointcuts>
+      </advice>
+    </advices>
+  </aspect>
+  <aspect name="Log">
+    <advices>
+      <advice name="Log Information" process="LogInformation" goal="SimpleLog" >
+        <pointcuts>
+          <pointcut process="SendArticlesToReviewers" task="Send invitation" condition="true" />
+          <pointcut process="SendArticlesToReviewers" task="Receive invitation" condition="true" />
+        </pointcuts>
+      </advice>
+    </advices>
+  </aspect>
+</aspects>
+

@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema2.2.xsd">
+  <specification uri="Confirm">
+    <metaData>
+      <creator>amin-jal</creator>
+      <description>No description has been given.</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_2135798b-3c6f-4e6a-9a1b-887250ca82e9</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Confirm" isRootNet="true" xsi:type="NetFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="unnamed" />
+          </flowsInto>
+        </inputCondition>
+        <task id="unnamed">
+          <flowsInto>
+            <nextElementRef id="unnamed_2" />
+            <isDefaultFlow />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Confirm_General_Manager" />
+            <predicate ordering="0">/Confirm/DealType/text()='CAD'</predicate>
+          </flowsInto>
+          <join code="xor" />
+          <split code="xor" />
+        </task>
+        <task id="Confirm_General_Manager">
+          <name>Confirm General Manager</name>
+          <flowsInto>
+            <nextElementRef id="Archive" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Confirm/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Confirm/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Confirm/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Confirm/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Confirm_General_Manager/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Confirm_General_Manager/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Confirm_General_Manager/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Confirm_General_Manager/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Confirm_General_Manager" />
+        </task>
+        <task id="unnamed_2">
+          <flowsInto>
+            <nextElementRef id="unnamed_1" />
+            <predicate ordering="0">number(/Confirm/Amount/text())&lt;100000</predicate>
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="PROCEED" />
+            <isDefaultFlow />
+          </flowsInto>
+          <join code="xor" />
+          <split code="xor" />
+        </task>
+        <task id="PROCEED">
+          <name>PROCEED</name>
+          <flowsInto>
+            <nextElementRef id="Confirm_Cheif_Dealer" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Confirm/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Confirm/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Confirm/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Confirm/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/PROCEED/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/PROCEED/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/PROCEED/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/PROCEED/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+          </completedMappings>
+          <decomposesTo id="PROCEED" />
+        </task>
+        <task id="Archive">
+          <name>Archive</name>
+          <flowsInto>
+            <nextElementRef id="unnamed_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Confirm/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Confirm/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Confirm/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Confirm/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Archive/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Archive/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Archive/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Archive/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Archive" />
+        </task>
+        <task id="unnamed_1">
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+        </task>
+        <task id="Confirm_Cheif_Dealer">
+          <name>Confirm Cheif Dealer</name>
+          <flowsInto>
+            <nextElementRef id="unnamed_1" />
+            <isDefaultFlow />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="General_Manager_Confirm" />
+            <predicate ordering="0">number(/Confirm/Amount/text())&gt;500000</predicate>
+          </flowsInto>
+          <join code="xor" />
+          <split code="xor" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Confirm/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Confirm/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Confirm/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Confirm/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Confirm_Cheif_Dealer/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Confirm_Cheif_Dealer/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Confirm_Cheif_Dealer/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Confirm_Cheif_Dealer/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Confirm_Cheif_Dealer" />
+        </task>
+        <task id="General_Manager_Confirm">
+          <name>General Manager Confirm</name>
+          <flowsInto>
+            <nextElementRef id="unnamed_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Confirm/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Confirm/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Confirm/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Confirm/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/General_Manager_Confirm/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/General_Manager_Confirm/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/General_Manager_Confirm/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/General_Manager_Confirm/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="General_Manager_Confirm" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="PROCEED" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <yawlService id="http://localhost:8080/aspectService/ib" />
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Archive" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="General_Manager_Confirm" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Confirm_General_Manager" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Confirm_Cheif_Dealer" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="en" country="US" />
+    <specification id="Confirm">
+      <size w="91" h="28" />
+      <net id="Confirm">
+        <bounds x="0" y="0" w="922" h="430" />
+        <frame x="2" y="25" w="925" h="433" />
+        <viewport x="0" y="0" w="925" h="433" />
+        <vertex id="InputCondition">
+          <attributes>
+            <backgroundColor>-3355393</backgroundColor>
+            <bounds x="36.0" y="264.0" w="32.0" h="32.0" />
+          </attributes>
+        </vertex>
+        <vertex id="OutputCondition">
+          <attributes>
+            <backgroundColor>-3355393</backgroundColor>
+            <bounds x="564.0" y="260.0" w="32.0" h="32.0" />
+          </attributes>
+        </vertex>
+        <flow source="InputCondition" target="unnamed">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <container id="unnamed">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="92.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <decorator type="XOR_split">
+            <position>13</position>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="123.0" y="264.0" w="11.0" h="32.0" />
+              <size w="11" h="32" />
+            </attributes>
+          </decorator>
+        </container>
+        <flow source="unnamed" target="Confirm_General_Manager">
+          <ports in="2" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Confirm_General_Manager" target="Archive">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <container id="unnamed_1">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="492.0" y="260.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <decorator type="XOR_join">
+            <position>12</position>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="482.0" y="260.0" w="11.0" h="32.0" />
+              <size w="11" h="32" />
+            </attributes>
+          </decorator>
+        </container>
+        <flow source="Archive" target="unnamed_1">
+          <ports in="13" out="4" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="499.0" y="171.5" />
+              <value x="747.0" y="260.0" />
+            </points>
+          </attributes>
+        </flow>
+        <flow source="unnamed_1" target="OutputCondition">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="unnamed" target="unnamed_2">
+          <ports in="2" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <container id="unnamed_2">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="172.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <decorator type="XOR_split">
+            <position>13</position>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="203.0" y="264.0" w="11.0" h="32.0" />
+              <size w="11" h="32" />
+            </attributes>
+          </decorator>
+        </container>
+        <flow source="unnamed_2" target="unnamed_1">
+          <ports in="2" out="2" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="unnamed_2" target="PROCEED">
+          <ports in="2" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="PROCEED" target="Confirm_Cheif_Dealer">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <container id="Confirm_Cheif_Dealer">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="332.0" y="312.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <decorator type="XOR_split">
+            <position>13</position>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="363.0" y="312.0" w="11.0" h="32.0" />
+              <size w="11" h="32" />
+            </attributes>
+          </decorator>
+          <label>
+            <attributes>
+              <bounds x="304.0" y="344.0" w="97.0" h="41.0" />
+            </attributes>
+          </label>
+        </container>
+        <flow source="Confirm_Cheif_Dealer" target="General_Manager_Confirm">
+          <ports in="2" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="General_Manager_Confirm" target="unnamed_1">
+          <ports in="13" out="0" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="663.0" y="383.5" />
+              <value x="747.0" y="291.0" />
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Confirm_Cheif_Dealer" target="unnamed_1">
+          <ports in="2" out="3" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="521.0" y="379.5" />
+              <value x="742.0" y="283.3" />
+            </points>
+          </attributes>
+        </flow>
+        <container id="Confirm_General_Manager">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="244.0" y="172.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="212.0" y="204.0" w="97.0" h="61.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Archive">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="384.0" y="172.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="352.0" y="204.0" w="97.0" h="21.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="PROCEED">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="240.0" y="312.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="208.0" y="344.0" w="97.0" h="21.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="General_Manager_Confirm">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="440.0" y="312.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="408.0" y="344.0" w="97.0" h="61.0" />
+            </attributes>
+          </label>
+        </container>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>
+
+

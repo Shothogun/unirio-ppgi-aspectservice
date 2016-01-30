@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema2.2.xsd">
+  <specification uri="DealForSpeculation">
+    <metaData>
+      <creator>amin-jal</creator>
+      <description>No description has been given.</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_ec13c416-9ea5-49a4-93d3-cfd7179165d1</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="DealForSpeculation" isRootNet="true" xsi:type="NetFactsType">
+      <localVariable>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>100000</initialValue>
+      </localVariable>
+      <localVariable>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>DFS2000</initialValue>
+      </localVariable>
+      <localVariable>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>DFS</initialValue>
+      </localVariable>
+      <localVariable>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>Dealslip</initialValue>
+      </localVariable>
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="Make_a_request" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Make_a_request">
+          <name>Make a request</name>
+          <flowsInto>
+            <nextElementRef id="Open_Position" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Make_a_request/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Make_a_request/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Make_a_request/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Make_a_request/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Make_a_request" />
+        </task>
+        <task id="Open_Position">
+          <name>Open Position</name>
+          <flowsInto>
+            <nextElementRef id="Make_a_Deal" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Open_Position/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Open_Position/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Open_Position/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Open_Position/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Open_Position" />
+        </task>
+        <task id="Make_a_Deal">
+          <name>Make a Deal</name>
+          <flowsInto>
+            <nextElementRef id="Fill_Dealslip" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Make_a_Deal/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Make_a_Deal/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Make_a_Deal/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Make_a_Deal/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Make_a_Deal" />
+        </task>
+        <task id="Fill_Dealslip">
+          <name>Fill Dealslip</name>
+          <flowsInto>
+            <nextElementRef id="Provide_a_SWIFT_Draft" />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Receive_MT300" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Fill_Dealslip/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Fill_Dealslip/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Fill_Dealslip/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Fill_Dealslip/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Fill_Dealslip" />
+        </task>
+        <task id="Receive_MT300">
+          <name>Receive MT300</name>
+          <flowsInto>
+            <nextElementRef id="Register_Voucher" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Receive_MT300/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Receive_MT300/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Receive_MT300/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Receive_MT300/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Receive_MT300" />
+        </task>
+        <task id="Provide_a_SWIFT_Draft">
+          <name>Provide a SWIFT Draft</name>
+          <flowsInto>
+            <nextElementRef id="Send_the_SWIFT" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Provide_a_SWIFT_Draft/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;SWIFT&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Provide_a_SWIFT_Draft/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Provide_a_SWIFT_Draft/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Provide_a_SWIFT_Draft" />
+        </task>
+        <task id="Send_the_SWIFT">
+          <name>Send the SWIFT</name>
+          <flowsInto>
+            <nextElementRef id="Register_Voucher" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Send_the_SWIFT/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Send_the_SWIFT/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Send_the_SWIFT/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Send_the_SWIFT/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Send_the_SWIFT" />
+        </task>
+        <task id="Register_Voucher">
+          <name>Register Voucher</name>
+          <flowsInto>
+            <nextElementRef id="Archive_Voucher" />
+          </flowsInto>
+          <join code="and" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Register_Voucher/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Register_Voucher/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Register_Voucher/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Register_Voucher/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Register_Voucher" />
+        </task>
+        <task id="Archive_Voucher">
+          <name>Archive Voucher</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;Document&gt;{/DealForSpeculation/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/DealForSpeculation/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/DealForSpeculation/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/DealForSpeculation/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;DealID&gt;{/Archive_Voucher/DealID/text()}&lt;/DealID&gt;" />
+              <mapsTo>DealID</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Document&gt;{/Archive_Voucher/Document/text()}&lt;/Document&gt;" />
+              <mapsTo>Document</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;Amount&gt;{/Archive_Voucher/Amount/text()}&lt;/Amount&gt;" />
+              <mapsTo>Amount</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;DealType&gt;{/Archive_Voucher/DealType/text()}&lt;/DealType&gt;" />
+              <mapsTo>DealType</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Archive_Voucher" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Make_a_request" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Archive_Voucher" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Receive_MT300" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Register_Voucher" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Make_a_Deal" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Fill_Dealslip" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Open_Position" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Provide_a_SWIFT_Draft" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Send_the_SWIFT" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>DealID</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>DealType</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>2</index>
+        <name>Amount</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>3</index>
+        <name>Document</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="en" country="US" />
+    <specification id="DealForSpeculation">
+      <size w="156" h="28" />
+      <net id="DealForSpeculation">
+        <bounds x="0" y="0" w="922" h="430" />
+        <frame x="2" y="25" w="925" h="433" />
+        <viewport x="0" y="0" w="925" h="433" />
+        <vertex id="InputCondition">
+          <attributes>
+            <backgroundColor>-3355393</backgroundColor>
+            <bounds x="36.0" y="264.0" w="32.0" h="32.0" />
+          </attributes>
+        </vertex>
+        <vertex id="OutputCondition">
+          <attributes>
+            <backgroundColor>-3355393</backgroundColor>
+            <bounds x="788.0" y="264.0" w="32.0" h="32.0" />
+          </attributes>
+        </vertex>
+        <flow source="InputCondition" target="Make_a_request">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Make_a_request" target="Open_Position">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Open_Position" target="Make_a_Deal">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Make_a_Deal" target="Fill_Dealslip">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <container id="Fill_Dealslip">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="388.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <decorator type="AND_split">
+            <position>13</position>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="419.0" y="264.0" w="11.0" h="32.0" />
+              <size w="11" h="32" />
+            </attributes>
+          </decorator>
+          <label>
+            <attributes>
+              <bounds x="360.0" y="296.0" w="96.0" h="20.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Register_Voucher">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="628.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <decorator type="AND_join">
+            <position>12</position>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="618.0" y="264.0" w="11.0" h="32.0" />
+              <size w="11" h="32" />
+            </attributes>
+          </decorator>
+          <label>
+            <attributes>
+              <bounds x="592.0" y="296.0" w="96.0" h="40.0" />
+            </attributes>
+          </label>
+        </container>
+        <flow source="Fill_Dealslip" target="Provide_a_SWIFT_Draft">
+          <ports in="2" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Provide_a_SWIFT_Draft" target="Send_the_SWIFT">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Send_the_SWIFT" target="Register_Voucher">
+          <ports in="13" out="2" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Fill_Dealslip" target="Receive_MT300">
+          <ports in="3" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Receive_MT300" target="Register_Voucher">
+          <ports in="13" out="2" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Register_Voucher" target="Archive_Voucher">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Archive_Voucher" target="OutputCondition">
+          <ports in="13" out="12" />
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <container id="Make_a_request">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="116.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="84.0" y="296.0" w="97.0" h="41.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Open_Position">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="208.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="176.0" y="296.0" w="96.0" h="40.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Make_a_Deal">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="292.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="260.0" y="296.0" w="97.0" h="21.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Provide_a_SWIFT_Draft">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="468.0" y="192.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="436.0" y="224.0" w="97.0" h="41.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Send_the_SWIFT">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="552.0" y="192.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="520.0" y="224.0" w="97.0" h="41.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Receive_MT300">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="508.0" y="320.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="476.0" y="352.0" w="96.0" h="40.0" />
+            </attributes>
+          </label>
+        </container>
+        <container id="Archive_Voucher">
+          <vertex>
+            <attributes>
+              <backgroundColor>-3355393</backgroundColor>
+              <bounds x="708.0" y="264.0" w="32.0" h="32.0" />
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="676.0" y="296.0" w="96.0" h="40.0" />
+            </attributes>
+          </label>
+        </container>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>
+
+
